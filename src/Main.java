@@ -1,30 +1,14 @@
 import java.util.HashMap;
 
 public class Main {
-    public static void main(String[] args) {
-        CustomHashMap studentList = new CustomHashMap(10);
-        try {
-            studentList.put("Oleg", 1);
-        } catch(CustomException e) {
-            System.out.println("catched exception");
-        }
-        try {
-            studentList.put("Oleg", 3);
-        } catch(CustomException e) {
-            System.out.println("catched exception");
-        }
-        try {
-            studentList.put("Ivan", 4);
-        } catch(CustomException e) {
-            System.out.println("catched exception");
-        }
-        try {
-            studentList.put("Sergey", 5);
-        } catch (CustomException e) {
-            System.out.println("cathced exception");
-        }
+    public static void main(String[] args) throws CustomCheckedException {
+        CustomHashMap studentList = new CustomHashMap("Sergey", 1, "Dmitriy", 2, "Egor", 3);
+
+        studentList.put("Sergey", 4);
+
+        studentList.put("Dmitriy", 2);
+
         System.out.println(studentList);
-        System.out.println(studentList.get("Ivan"));
 
     }
 }

@@ -1,52 +1,56 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomHashMap {
-    public HashMap<String, Integer> hashMap;
+public class CustomHashMap<K, V> {
+    private final HashMap<K, V> map;
 
     public CustomHashMap(int initialCapacity) {
-        this.hashMap = new HashMap<>(initialCapacity);
+        this.map = new HashMap<>(initialCapacity);
     }
 
     public CustomHashMap() {
-        this.hashMap = new HashMap<>();
+        this.map = new HashMap<>();
     }
 
-    public CustomHashMap(String key, int value) {
-        this.hashMap = new HashMap<>();
-        hashMap.put(key, value);
-    }
-
-
-    public void put(String key, int value) throws CustomException {
-
-        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
-            String targetKey = entry.getKey();
-            Integer targetValue = entry.getValue();
-            if(targetValue == value) {
-                throw new CustomException("");
-            }
-            if(targetValue == value && targetKey.equals(key)) {
-                throw new CustomException("eorweo");
+    public CustomHashMap(K... keysAndValues) {
+        this.map = new HashMap<>();
+        if (keysAndValues != null) {
+            for (int i = 0; i < keysAndValues.length; i += 2) {
+                map.put(keysAndValues[i], (V) keysAndValues[i + 1]);
             }
         }
-        hashMap.put(key, value);
+
     }
 
-    public int get(String key) {
-        return hashMap.get(key);
+    public void put(K key, V value) {
+        try {
+            for (Map.Entry<K, V> entry : map.entrySet()) {
+                if (entry.getKey().equals(key) && entry.getValue() == value) {
+                    throw new CustomUncheckedException("this pair is already in used");
+                } else if (entry.getKey().equals(key)) {
+                    map.put(key, value);
+                    throw new CustomCheckedException("this key already in used");
+                }
+            }
+        } catch (CustomUncheckedException e) {
+            System.out.println("An unchecked exception occurred: " + e.getMessage());
+        } catch (CustomCheckedException e) {
+            System.out.println("A checked exception occurred: " + e.getMessage());
+        }
+    }
+
+    public V get(K key) {
+        return map.get(key);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             sb.append(entry.getKey()).append(" = ").append(entry.getValue()).append(", ");
         }
-        if (!hashMap.isEmpty()) {
+        if (!map.isEmpty()) {
             sb.delete(sb.length() - 2, sb.length());
         }
         sb.append("}");
