@@ -1,7 +1,7 @@
-import java.util.HashMap;
+package hw0;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CustomCheckedException {
         CustomHashMap studentList = new CustomHashMap("Sergey", 1, "Dmitriy", 2, "Egor", 3);
 
         studentList.put("Sergey", 4);

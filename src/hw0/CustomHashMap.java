@@ -1,3 +1,5 @@
+package hw0;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ public class CustomHashMap<K, V> {
             System.out.println("A checked exception occurred: " + e.getMessage());
         }
     }
+
 
     public V get(K key) {
         return map.get(key);
