@@ -1,13 +1,15 @@
 package hw2;
 
-public class Reader {
-    String fullName;
-    int readersTicketNum;
-    String faculty;
-    String birthDate;
-    String phoneNumber;
+import java.time.LocalDate;
 
-    public Reader (String fullName, int readersTicketNum, String faculty, String birthDate, String phoneNumber) {
+public class Reader {
+    private final String fullName;
+    private final int readersTicketNum;
+    private final String faculty;
+    private final LocalDate birthDate;
+    private final String phoneNumber;
+
+    public Reader(String fullName, int readersTicketNum, String faculty, LocalDate birthDate, String phoneNumber) {
         this.fullName = fullName;
         this.readersTicketNum = readersTicketNum;
         this.faculty = faculty;
@@ -21,30 +23,21 @@ public class Reader {
     }
 
     public void takeBook(String... bookNames) {
-        System.out.print(fullName + " взял книги: ");
-        for(String bookName : bookNames) {
-            System.out.print(bookName + ", ");
-        }
-        System.out.println();
+        System.out.println(fullName + " взял книги: " + String.join(", ", bookNames));
     }
+
     public void takeBook(Book... books) {
         System.out.print(fullName + " взял книги: ");
-        for (int i = 0; i < books.length; i++) {
-            System.out.print(books[i].getTitle());
-            if(i < books.length - 1) {
-                System.out.print(", ");
-            }
+        for (Book book : books) {
+            System.out.print(book.getTitle() + ", ");
         }
         System.out.println();
+    }
 
-    }
     public void returnBook(String... bookNames) {
-        System.out.print(fullName + " вернул книги: ");
-        for(String bookName : bookNames) {
-            System.out.print(bookName + ", ");
-        }
-        System.out.println();
+        System.out.print(fullName + " вернул книги: " + String.join(", ", bookNames));
     }
+
     public void returnBook(int numberOfBooks) {
         System.out.println(fullName + " отдал " + numberOfBooks + " книги");
     }
